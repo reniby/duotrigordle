@@ -1,6 +1,6 @@
 import cn from "classnames";
 import { useEffect, useState } from "react";
-import { settingsAction, useAppDispatch, useAppSelector } from "../../store";
+import { numBoards, setBoards, settingsAction, useAppDispatch, useAppSelector } from "../../store";
 import { Checkbox } from "../common/Checkbox/Checkbox";
 import { Modal } from "../common/Modal/Modal";
 import styles from "./Settings.module.css";
@@ -133,6 +133,8 @@ export function Settings() {
           </label>
         </div>
         <hr className={styles.seperator} />
+        <BoardNumberInput />
+        <hr className={styles.seperator} />
         <KofiEmailInput />
         <div className={cn(styles.setting, !kofiEmail && styles.disabled)}>
           <Checkbox
@@ -147,6 +149,57 @@ export function Settings() {
         </div>
       </div>
     </Modal>
+  );
+}
+
+function BoardNumberInput() {
+  const [text, setText] = useState("");
+  // 0 - no input
+  // 1 - not a valid board number
+  // 2 - success
+  const [statusCode, setStatusCode] = useState(0);
+
+  function handleClick() {
+    if (!text) {
+      setStatusCode(0);
+      return;
+    } else if (Number(text) < 0) {
+      setStatusCode(1);
+      return;
+    } else {
+      setBoards(Number(text));
+      setStatusCode(2);
+      return;
+    }
+  }
+  return (
+    <div className={styles.kofiEmailInput}>
+      <p className={styles.hint}>
+        Enter the number of boards you want:
+        <br />(Can still only do daily once!)
+      </p>
+      <div className={styles.kofiInputGroup}>
+        <input
+          type="email"
+          className={styles.email}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <input
+          className={styles.submit}
+          type="button"
+          onClick={handleClick}
+          value={"Submit"}
+        />
+      </div>
+      <p className={styles.hint}>
+        {statusCode === 2 ? (
+          <>Board number set to {numBoards}!</>
+        ) : statusCode === 1 ? (
+          <>Not a valid board number input (must be more than 0!)</>
+        ) : null}
+      </p>
+    </div>
   );
 }
 

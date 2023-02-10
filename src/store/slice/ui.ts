@@ -4,7 +4,7 @@ import {
   getCompletedBoards,
   getSequenceVisibleBoard,
   initialState,
-  NUM_BOARDS,
+  numBoards,
 } from "..";
 
 export type UiState = {
@@ -120,18 +120,18 @@ export function highlightNextBoard(state: AppState) {
   if (idx === null) {
     idx = 0;
   } else {
-    idx = (idx + 1) % NUM_BOARDS;
+    idx = (idx + 1) % numBoards;
   }
   const completedBoards = getCompletedBoards(
     state.game.targets,
     state.game.guesses
   );
-  for (let i = 0; i < NUM_BOARDS; i++) {
+  for (let i = 0; i < numBoards; i++) {
     if (!completedBoards[idx]) {
       state.ui.highlightedBoard = idx;
       return;
     }
-    idx = (idx + 1) % NUM_BOARDS;
+    idx = (idx + 1) % numBoards;
   }
   state.ui.highlightedBoard = null;
 }
@@ -144,20 +144,20 @@ export function highlightPreviousBoard(state: AppState) {
 
   let idx = state.ui.highlightedBoard;
   if (idx === null) {
-    idx = NUM_BOARDS - 1;
+    idx = numBoards - 1;
   } else {
-    idx = (idx + NUM_BOARDS - 1) % NUM_BOARDS;
+    idx = (idx + numBoards - 1) % numBoards;
   }
   const completedBoards = getCompletedBoards(
     state.game.targets,
     state.game.guesses
   );
-  for (let i = 0; i < NUM_BOARDS; i++) {
+  for (let i = 0; i < numBoards; i++) {
     if (!completedBoards[idx]) {
       state.ui.highlightedBoard = idx;
       return;
     }
-    idx = (idx + NUM_BOARDS - 1) % NUM_BOARDS;
+    idx = (idx + numBoards - 1) % numBoards;
   }
   state.ui.highlightedBoard = null;
 }

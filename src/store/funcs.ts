@@ -1,7 +1,7 @@
 import { MersenneTwister, range } from "../util";
 import {
-  NUM_BOARDS,
-  NUM_GUESSES,
+  numBoards,
+  numGuesses,
   PRACTICE_MODE_MIN_ID,
   START_DATE,
   WORDS_TARGET,
@@ -12,7 +12,7 @@ import { Challenge } from "./slice/game";
 export function getTargetWords(id: number): string[] {
   const targetWords: string[] = [];
   const rng = MersenneTwister(id);
-  while (targetWords.length < NUM_BOARDS) {
+  while (targetWords.length < numBoards) {
     const idx = rng.u32() % WORDS_TARGET.length;
     const word = WORDS_TARGET[idx];
     if (!targetWords.includes(word)) {
@@ -209,6 +209,6 @@ export function getIsGameOver(
   guesses: string[],
   challenge: Challenge
 ) {
-  const maxGuesses = challenge === "perfect" ? NUM_BOARDS : NUM_GUESSES;
+  const maxGuesses = challenge === "perfect" ? numBoards : numGuesses;
   return getAllWordsGuessed(targets, guesses) || guesses.length >= maxGuesses;
 }

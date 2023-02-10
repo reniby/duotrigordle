@@ -3,6 +3,8 @@ import { Fragment, useMemo, useState } from "react";
 import {
   HistoryEntry,
   normalizeHistory,
+  numBoards,
+  numGuesses,
   PRACTICE_MODE_MIN_ID,
   statsAction,
   StatsState,
@@ -51,11 +53,11 @@ export default function Stats() {
             Streak
           </p>
         </div>
-        <p className={styles.title}>Guess Distribution</p>
+        <p className={styles.title}>Guess Distribution <br />(guesses over number of boards)</p>
         <div className={styles.chart}>
           {range(6).map((i) => (
             <Fragment key={i}>
-              <p>{i + 32}</p>
+              <p>{i}</p>
               <div className={styles.barWrapper}>
                 <div className={styles.bar} style={{ width: guessStyle[i] }}>
                   <div className={styles.barColor} />
@@ -110,7 +112,7 @@ function calculateStatsInfo(stats: StatsState) {
   // Calculate guess distribution
   const guessCount = [];
   for (let i = 0; i < 6; i++) {
-    const count = history.filter((x) => x.guesses === i + 32).length;
+    const count = history.filter((x) => x.guesses === i + numBoards).length;
     guessCount.push(count);
   }
   const guessMax = Math.max(...guessCount);
@@ -305,7 +307,7 @@ function parseHistory(text: string): HistoryEntry[] | string {
     } else {
       ids.add(id);
     }
-    if (guesses !== null && (guesses < 32 || guesses > 37)) {
+    if (guesses !== null && (guesses < numBoards || guesses > numGuesses)) {
       return (
         `Line ${i + 1} has invalid guess count, ` +
         `must be "X" or 32-37 ("${lines[i]}")`

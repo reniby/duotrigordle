@@ -13,8 +13,8 @@ import {
   getCompletedBoards,
   getCompletedBoardsCount,
   loadGameFromLocalStorage,
-  NUM_BOARDS,
-  NUM_GUESSES,
+  numBoards,
+  numGuesses,
   uiAction,
   useAppDispatch,
   useAppSelector,
@@ -187,10 +187,10 @@ function Row2() {
     [guesses, targets]
   );
   const challenge = useAppSelector((s) => s.game.challenge);
-  const numGuesses = guesses.length;
-  const maxGuesses = challenge === "perfect" ? NUM_BOARDS : NUM_GUESSES;
+  const guessesNum = guesses.length;
+  const maxGuesses = challenge === "perfect" ? numBoards : numGuesses;
   const extraGuessesNum =
-    maxGuesses - NUM_BOARDS - (numGuesses - boardsCompleted);
+    maxGuesses - numBoards - (guessesNum - boardsCompleted);
   const cannotWin = extraGuessesNum < 0;
   const extraGuesses =
     extraGuessesNum > 0 ? "+" + extraGuessesNum : extraGuessesNum;
@@ -198,7 +198,7 @@ function Row2() {
   return (
     <div className={styles.row2}>
       <span>
-        Boards: {boardsCompleted}/{NUM_BOARDS}
+        Boards: {boardsCompleted}/{numBoards}
       </span>
       <Timer />
       <span className={cn(cannotWin && !gameOver && styles.red)}>
@@ -251,7 +251,7 @@ function Row3() {
 
   return (
     <div className={styles.row3}>
-      {range(NUM_BOARDS).map((i) => (
+      {range(numBoards).map((i) => (
         <button
           key={i}
           className={cn(

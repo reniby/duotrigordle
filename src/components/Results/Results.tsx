@@ -4,8 +4,8 @@ import {
   Challenge,
   GameMode,
   getAllWordsGuessed,
-  NUM_BOARDS,
-  NUM_GUESSES,
+  numBoards,
+  numGuesses,
   uiAction,
   useAppDispatch,
   useAppSelector,
@@ -87,7 +87,7 @@ export function Results() {
           </Button>
         </div>
         <div className={styles.words}>
-          {range(NUM_BOARDS).map((i) => (
+          {range(numBoards).map((i) => (
             <button
               key={i}
               className={cn(styles.word)}
@@ -142,7 +142,7 @@ function getShareableText(
   const guessCount = getAllWordsGuessed(targets, guesses)
     ? guesses.length
     : "X";
-  const maxGuesses = challenge === "perfect" ? NUM_BOARDS : NUM_GUESSES;
+  const maxGuesses = challenge === "perfect" ? numBoards : numGuesses;
   text += `Guesses: ${guessCount}/${maxGuesses}\n`;
 
   // Timer
@@ -152,11 +152,11 @@ function getShareableText(
 
   // Emojis
   const cols = 4;
-  const rows = Math.ceil(NUM_BOARDS / cols);
+  const rows = Math.ceil(numBoards / cols);
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       const idx = i * cols + j;
-      if (idx > NUM_BOARDS) continue;
+      if (idx > numBoards) continue;
       if (j !== 0) {
         text += " ";
       }

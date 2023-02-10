@@ -14,7 +14,7 @@ import {
   normalizeHistory,
 } from "..";
 import { range } from "../../util";
-import { NUM_BOARDS, WORDS_VALID } from "../consts";
+import { numBoards, WORDS_VALID } from "../consts";
 
 export type GameState = {
   // Daily Duotrigordle number (seed for target words)
@@ -47,8 +47,8 @@ export const gameInitialState: GameState = {
   gameMode: "daily",
   challenge: "normal",
   guesses: [],
-  targets: range(NUM_BOARDS).map((_) => "AAAAA"),
-  colors: range(NUM_BOARDS).map(() => []),
+  targets: range(numBoards).map((_) => "AAAAA"),
+  colors: range(numBoards).map(() => []),
   gameOver: false,
   startTime: 0,
   endTime: 0,

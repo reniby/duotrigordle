@@ -5,7 +5,7 @@ import {
   gameAction,
   getCompletedBoardsCount,
   getDailyId,
-  NUM_BOARDS,
+  numBoards,
   uiAction,
   useAppDispatch,
   useAppSelector,
@@ -65,7 +65,7 @@ export function Welcome() {
     } else if (challenge === "jumble") {
       text += "Daily Jumble";
     }
-    text += ` #${gameId} (${boardsComplete}/${NUM_BOARDS})`;
+    text += ` #${gameId} (${boardsComplete}/${numBoards})`;
     return text;
   };
 
@@ -89,7 +89,7 @@ export function Welcome() {
             >
               Daily Duotrigordle
             </LinkButton>
-            <p>Solve 32 wordles at the same time</p>
+            <p>Solve {numBoards} wordles at the same time</p>
           </div>
           <div className={styles.gameMode}>
             <LinkButton
@@ -129,7 +129,7 @@ export function Welcome() {
           >
             Practice Duotrigordle
           </LinkButton>
-          <p>Solve 32 wordles at the same time</p>
+          <p>Solve {numBoards} wordles at the same time</p>
         </div>
         <div className={styles.gameMode}>
           <LinkButton
@@ -160,7 +160,7 @@ export function Welcome() {
             Perfect Challenge
           </LinkButton>
           <p>
-            The ultimate duotrigordle challenge! Can you complete 32 boards
+            The ultimate duotrigordle challenge! Can you complete {numBoards} boards
             without making a single mistake?
           </p>
         </div>

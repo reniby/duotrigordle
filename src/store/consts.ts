@@ -1,6 +1,10 @@
-export const NUM_BOARDS = 32;
+export let numBoards = 32;
+export let numGuesses = 37;
 
-export const NUM_GUESSES = 37;
+export function setBoards(boardInput: number) {
+  numBoards = boardInput;
+  numGuesses = numBoards + 5;
+}
 
 export const PRACTICE_MODE_MIN_ID = 100000;
 
